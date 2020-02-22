@@ -5,15 +5,17 @@ import (
 	"github.com/VegimagDevs/vegimag-api/storage"
 	"github.com/gin-gonic/gin"
 	log "github.com/sirupsen/logrus"
+	"github.com/urfave/cli/v2"
+	"os"
 )
 
-func main() {
+func run(ctx *cli.Context) error {
 	storage := storage.New(&storage.Config{
-		Path: "data.db",
+		Path: ctx.String("storage-path"),
 	})
 
 	if err := storage.Open(); err != nil {
-		log.WithError(err).Fatal("Error opening the database")
+		return err
 	}
 
 	router := gin.Default()
@@ -25,5 +27,22 @@ func main() {
 	router.POST("/users", handlers.CreateUser)
 	router.POST("/sessions", handlers.CreateSession)
 
-	router.Run()
+	return router.Run()
+}
+
+func main() {
+	app := &cli.App{
+		Name: "vegimag-api",
+		Flags: []cli.Flag{
+			&cli.StringFlag{
+				Name:  "storage-path",
+				Value: "data.db",
+			},
+		},
+		Action: run,
+	}
+
+	if err := app.Run(os.Args); err != nil {
+		log.Fatal(err.Error())
+	}
 }

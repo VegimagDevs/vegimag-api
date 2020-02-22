@@ -14,12 +14,13 @@ RUN go mod download
 COPY . .
 RUN go build -o /go/bin/app
 
-FROM gcr.io/distroless/static as production-stage
+FROM gcr.io/distroless/base as production-stage
 
 ENV GIN_MODE=release \
 		PORT=80
 
 COPY --from=build-stage /go/bin/app /
 
+VOLUME /data/
 EXPOSE 80
-CMD ["/app"]
+CMD ["/app", "--storage-path", "/data/data.db"]

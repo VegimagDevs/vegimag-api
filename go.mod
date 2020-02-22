@@ -14,6 +14,7 @@ require (
 	github.com/modern-go/reflect2 v1.0.1 // indirect
 	github.com/satori/go.uuid v1.2.0
 	github.com/sirupsen/logrus v1.4.2
+	github.com/urfave/cli/v2 v2.1.1
 	go.etcd.io/bbolt v1.3.3
 	golang.org/x/crypto v0.0.0-20200221231518-2aa609cf4a9d
 	golang.org/x/sys v0.0.0-20200219091948-cb0a6d8edb6c // indirect
