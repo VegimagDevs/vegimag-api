@@ -10,14 +10,19 @@ import (
 	"golang.org/x/crypto/bcrypt"
 )
 
-type User struct {
+type CreateUserJSON struct {
 	Email    string `json:"email" binding:"required,email"`
 	Username string `json:"username" binding:"required,lte=50"`
 	Password string `json:"password" binding:"required"`
 }
 
+// @Summary Create an user
+// @Accept json
+// @Produce json
+// @Param user body CreateUserJSON true "The user to create"
+// @Router /users [post]
 func (handlers *Handlers) CreateUser(ctx *gin.Context) {
-	user := new(User)
+	user := new(CreateUserJSON)
 	if err := ctx.ShouldBindJSON(user); err != nil {
 		ctx.JSON(http.StatusBadRequest, gin.H{
 			"error": err.Error(),
@@ -82,6 +87,22 @@ func (handlers *Handlers) CreateUser(ctx *gin.Context) {
 	ctx.JSON(http.StatusOK, gin.H{
 		"userId": userId,
 	})
+}
+
+// @Summary Get a new validation token
+// @Accept json
+// @Produce json
+// @Router /users/validation-token [get]
+func (handlers Handlers) GetValidationToken(ctx *gin.Context) {
+
+}
+
+// @Summary Validate an user
+// @Accept json
+// @Produce json
+// @Router /users/validate [post]
+func (handlers Handlers) ValidateUser(ctx *gin.Context) {
+
 }
 
 func hashPassword(password string) (string, error) {

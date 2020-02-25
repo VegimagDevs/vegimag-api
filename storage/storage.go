@@ -9,6 +9,7 @@ const (
 	USERS_BUCKET               = "users"
 	EMAIL_TO_USER_ID_BUCKET    = "emailToUserId"
 	USERNAME_TO_USER_ID_BUCKET = "usernameToUserId"
+	REFRESH_TOKENS_BUCKET      = "refreshTokens"
 )
 
 type Config struct {

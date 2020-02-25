@@ -1,0 +1,61 @@
+basePath: /
+definitions:
+  handlers.CreateUserJSON:
+    properties:
+      email:
+        type: string
+      password:
+        type: string
+      username:
+        type: string
+    required:
+    - email
+    - password
+    - username
+    type: object
+host: https://api.vegimag.org
+info:
+  contact: {}
+  description: The API server of the Vegimag project.
+  license:
+    name: LGPL3
+    url: http://www.gnu.org/licenses/lgpl-3.0.en.html
+  title: Vegimag API
+  version: "1.0"
+paths:
+  /sessions:
+    post:
+      consumes:
+      - application/json
+      produces:
+      - application/json
+      summary: Create a session
+  /users:
+    post:
+      consumes:
+      - application/json
+      parameters:
+      - description: The user to create
+        in: body
+        name: user
+        required: true
+        schema:
+          $ref: '#/definitions/handlers.CreateUserJSON'
+      produces:
+      - application/json
+      summary: Create an user
+  /users/validate:
+    post:
+      consumes:
+      - application/json
+      produces:
+      - application/json
+      summary: Validate an user
+  /users/validation-token:
+    get:
+      consumes:
+      - application/json
+      produces:
+      - application/json
+      summary: Get a new validation token
+swagger: "2.0"

@@ -1,0 +1,93 @@
+{
+    "swagger": "2.0",
+    "info": {
+        "description": "The API server of the Vegimag project.",
+        "title": "Vegimag API",
+        "contact": {},
+        "license": {
+            "name": "LGPL3",
+            "url": "http://www.gnu.org/licenses/lgpl-3.0.en.html"
+        },
+        "version": "1.0"
+    },
+    "host": "https://api.vegimag.org",
+    "basePath": "/",
+    "paths": {
+        "/sessions": {
+            "post": {
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "summary": "Create a session"
+            }
+        },
+        "/users": {
+            "post": {
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "summary": "Create an user",
+                "parameters": [
+                    {
+                        "description": "The user to create",
+                        "name": "user",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/handlers.CreateUserJSON"
+                        }
+                    }
+                ]
+            }
+        },
+        "/users/validate": {
+            "post": {
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "summary": "Validate an user"
+            }
+        },
+        "/users/validation-token": {
+            "get": {
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "summary": "Get a new validation token"
+            }
+        }
+    },
+    "definitions": {
+        "handlers.CreateUserJSON": {
+            "type": "object",
+            "required": [
+                "email",
+                "password",
+                "username"
+            ],
+            "properties": {
+                "email": {
+                    "type": "string"
+                },
+                "password": {
+                    "type": "string"
+                },
+                "username": {
+                    "type": "string"
+                }
+            }
+        }
+    }
+}
